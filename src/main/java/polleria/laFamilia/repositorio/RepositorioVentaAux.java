@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 import polleria.laFamilia.entidades.VentaAux;
 
 @Repository
-public interface RepositorioVentaAux extends JpaRepository<VentaAux, String>{
+public interface RepositorioVentaAux extends JpaRepository<VentaAux, Integer>{
 
 }

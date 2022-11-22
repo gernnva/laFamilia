@@ -18,6 +18,7 @@ import polleria.laFamilia.entidades.VentaAux;
 import polleria.laFamilia.servicio.ServicioProducto;
 import polleria.laFamilia.repositorio.RepositorioProducto;
 import polleria.laFamilia.repositorio.RepositorioVentaAux;
+import polleria.laFamilia.servicio.ServicioVentaAux;
 
 
 @Controller
@@ -32,6 +33,9 @@ public class controladorProducto {
     
     @Autowired
     private RepositorioVentaAux repoVentaAux;
+    
+    @Autowired
+    private ServicioVentaAux servVentaAux;
     
    
     @GetMapping("/")
@@ -57,6 +61,8 @@ public class controladorProducto {
     @GetMapping("/listar")
     public String listarProductos (ModelMap modelo){
         List<Producto> productos = repoProducto.findAll();
+        List<VentaAux> ventaAuxs = repoVentaAux.findAll();
+        modelo.put("ventaAuxs", ventaAuxs);
         modelo.put("productos", productos);
         return "pantallaProductos";
     }
@@ -110,54 +116,34 @@ public class controladorProducto {
         }
     }
     
-    @PostMapping("/ventaAux/{id}")
+
+    @GetMapping("/ventaAux/{id}")
     public String sumarProducto(@PathVariable String id) {
         
-        /*
-        public String productoAgregado(ModelMap modelo, @RequestParam String nombre, @RequestParam String descripcion, @RequestParam Integer stock,
-            @RequestParam Integer precio, @RequestParam String tipo, @RequestParam String habilitado){
         try {
-            // modelo.addAttribute("productos", new Producto());
+            servVentaAux.agregarItem(id);
+        } catch (Exception e) {
             
-            servProducto.agregarProducto(nombre, descripcion, stock, precio, tipo, habilitado);
-        */
-        
-       
+        }
+               
         return "redirect:/listar";
         
     }
     
-   
-    
-
-    
-    //--------------------------------------------------//
-    //hacer la pantalla para ver prductos en venta
-    @GetMapping("/pantallaVenta")
-    public String mostrarProductosEnVentaAB(ModelMap modelo, ModelMap modelAux){
-        List<Producto> productos = repoProducto.findAll();
-        modelo.put("productos", productos);
+    @GetMapping("/sacarVentaAux/{id}")
+    public String sacarProducto(@PathVariable Integer id) {
         
-//        List<VentaAux> prodVentasAux = repoVentaAux.findAll();
-//        modelAux.put("prodVentasAux", prodVentasAux);
-        return "pantallaVenta";
-    }
-
-    @PostMapping("/detallePedidoAltaBaja")
-    // configurar par alta y baja de los productos al menos
-    public String detallePedidoAltaBaja(ModelMap modelo, @RequestParam String nombre, @RequestParam String descripcion, @RequestParam Integer stock,
-            @RequestParam Integer precio, @RequestParam String tipo, @RequestParam String habilitado){
         try {
-            // modelo.addAttribute("productos", new Producto());
+            servVentaAux.borrarItem(id);
+        } catch (Exception e) {
             
-            servProducto.agregarProducto(nombre, descripcion, stock, precio, tipo, habilitado);
-        } catch (Exception ex) {
-            modelo.put("error", ex.getMessage());
-            return "productos";
-            // si hay algun error podriamos poner un return y que derive a otra pagina por ahora no envia a ningun 
         }
-        return "productos";
-    }
+               
+        return "redirect:/listar";
+    
+    
+    
+    
     
     
 }

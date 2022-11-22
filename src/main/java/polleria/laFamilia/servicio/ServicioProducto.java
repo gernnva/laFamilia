@@ -91,7 +91,7 @@ public class ServicioProducto {
     public Producto baja(String id) {
 
         Producto producto = productoRepositorio.getOne(id);
-
+        
         producto.setHabilitado(false);
         return productoRepositorio.save(producto);
     }
