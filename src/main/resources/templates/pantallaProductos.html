@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Lista de Productos</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Para que sea se adapte al dispositivo-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+-->    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous" />
+</head>
+
+<body>
+
+    <nav class="navbar-expand-sm d-flex bg-warning">
+        <div class="bg-dark p-1"></div>
+        <div class="container-fluid d-flex align-items-center ">
+            <img src="/Estilos/icono.png" alt="Logo" style="width: 70px;" class="rounded-pill ">
+            <div>
+                <span class="ps-3 p-2"
+                    style="color: black; font-size: 200%; font-family: Brush script MT; font-weight: bold">
+                    Los Pollos Hermanos
+                </span>
+            </div>
+
+        </div>
+
+        <div class="container-fluid d-flex align-items-center justify-content-end ">
+            <ul class="navbar-nav">
+                
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="#">Quienes Somos</a>
+                </li>
+
+            </ul>
+        </div>
+        <div class="bg-dark p-1"></div>
+    </nav>
+
+    <section class="fondoImagen">
+        
+        <div class="row py-5 mx-3">
+            
+            <div class="d-flex ">
+                <h3>Productos en STOCK</h3>
+                <a th:href="@{/}" class="btn btn-success ms-auto p-2 ">Volver</a>
+            </div>
+                        
+            <div class="col-8" style="overflow-y: scroll; height: 500px;">
+                <!--TABLA POLLOS-->
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th text='pollos'>POLLOS</th>
+                        </tr>
+                    </thead>
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Precio</th>
+                            <th>Stock</th>
+                            <th>Descripcion</th>
+                            <th>¿Habilitado?</th>                            
+                        </tr>
+                    </thead>
+                    <tbody th:if="${producto.tipo == 'Pollos'}" th:each = "producto : ${productos}">
+                        <tr>
+                            <td th:text="${producto.nombre}"></td>
+                            <td th:text=" '$' + ${producto.precio}"></td>
+                            <td th:text="${producto.stock}"></td>
+                            <td th:text="${producto.descripcion}"></td>
+                            <td>
+                                <i th:if="${producto.habilitado}" class="fa fa-circle text-success"></i>
+				                <i th:unless="${producto.habilitado}"   class="fa fa-circle" style="color:red;"></i>
+                                <a th:href= "@{/alta/__${producto.id}__}"><i class="fa fa-arrow-up"></i></a> <!--FLECHITA-->
+                                <a th:href= "@{/baja/__${producto.id}__}"><i class="fa fa-ban"></i></a> 
+                            </td>
+                            <td>
+                                <a class="btn btn-warning" th:href= "@{/modificar/__${producto.id}__}">
+                                    <i class="fa fa-edit"></i></a>
+                                <a class="btn btn-info" th:href= "@{/modificar/__${producto.id}__}">
+                                    <i class="fas fa-shopping-cart"></i></a>
+                                
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!--TABLA EMPANADAS-->
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>EMPANADAS</th>
+                        </tr>
+                    </thead>
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Precio</th>
+                            <th>Stock</th>
+                            <th>Descripcion</th>
+                            <th>¿Habilitado?</th>                            
+                        </tr>
+                    </thead>
+                    <body>
+                        <tr th:if="${ producto.tipo == 'Empanadas'}" th:each = "producto : ${productos}">
+                            <td th:text="${producto.nombre}"></td>
+                            <td th:text=" '$' + ${producto.precio}"></td>
+                            <td th:text="${producto.stock}"></td>
+                            <td th:text="${producto.descripcion}"></td>
+                            <td>
+                                <i th:if="${producto.habilitado}" class="fa fa-circle text-success"></i>
+				                <i th:unless="${producto.habilitado}"   class="fa fa-circle" style="color:red;"></i>
+                                <a th:href= "@{/alta/__${producto.id}__}"><i class="fa fa-arrow-up"></i></a> <!--FLECHITA-->
+                                <a th:href= "@{/baja/__${producto.id}__}"><i class="fa fa-ban"></i></a> 
+                            </td>
+                            <td>
+                                <a class="btn btn-warning" th:href= "@{/modificar/__${producto.id}__}">
+                                    <i class="fa fa-edit"></i></a>
+                                <a class="btn btn-info" th:href= "@{/modificar/__${producto.id}__}">
+                                    <i class="fas fa-shopping-cart"></i></a>
+                                
+                            </td>
+                        </tr>
+                    </body>
+                </table>
+                <!--TABLA BEBIDAS-->
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>BEBIDAS</th>
+                        </tr>
+                    </thead>
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Precio</th>
+                            <th>Stock</th>
+                            <th>Descripcion</th>
+                            <th>¿Habilitado?</th>                            
+                        </tr>
+                    </thead>
+                    <body>
+                        <tr th:if="${ producto.tipo == 'Bebidas'}" th:each = "producto : ${productos}">
+                            <td th:text="${producto.nombre}"></td>
+                            <td th:text=" '$' + ${producto.precio}"></td>
+                            <td th:text="${producto.stock}"></td>
+                            <td th:text="${producto.descripcion}"></td>
+                            <td>
+                                <i th:if="${producto.habilitado}" class="fa fa-circle text-success"></i>
+				                <i th:unless="${producto.habilitado}"   class="fa fa-circle" style="color:red;"></i>
+                                <a th:href= "@{/alta/__${producto.id}__}"><i class="fa fa-arrow-up"></i></a> <!--FLECHITA-->
+                                <a th:href= "@{/baja/__${producto.id}__}"><i class="fa fa-ban"></i></a> 
+                            </td>
+                            <td>
+                                <a class="btn btn-warning" th:href= "@{/modificar/__${producto.id}__}">
+                                    <i class="fa fa-edit"></i></a>
+                                <a class="btn btn-info" th:href= "@{/modificar/__${producto.id}__}">
+                                    <i class="fas fa-shopping-cart"></i></a>
+                                
+                            </td>
+                            
+                        </tr>
+                    </body>
+                </table>
+
+            </div>
+
+            <div class="col-4" style="overflow-y: scroll; height: 500px;">
+                <!--TABLA VENTAS-->
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th text='detallePedido'>DETALLE PEDIDO</th>
+                        </tr>
+                    </thead>
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Precio</th>   
+                            <th><i class="fas fa-trash"></i></th> 
+                                                     
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <!-- llamar a la tabla aux de venta // llamarla desde el controler -->
+                            <!-- <td th:text="${}"></td>
+                            <td th:text="${}"></td>
+                            <td th:text="${}"></td>                -->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+
+
+    </section>
+
+
+    <footer class=" pt-md-4 fondoImagen p-2 d-flex justify-content-evenly">
+
+        <div class="row">
+
+            <div class="col">
+                <h5>Informacion</h5>
+                <div>
+                    <ul class="list-unstyled text-small">
+                        <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Direccion: San Martin
+                                2525</a></li>
+                        <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Telefono </a></li>
+
+
+                    </ul>
+                </div>    
+            </div>
+
+
+
+            <div class="col" style="text-align:right">
+                <h5>Nosotros</h5>
+                <ul class="list-unstyled text-small">
+                    <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Team</a></li>
+                    <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Locations</a></li>
+                    <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Privacy</a></li>
+
+                </ul>
+            </div>
+
+        </div>
+
+    </footer>
+
+
+        
+</body>
+
+</html>
