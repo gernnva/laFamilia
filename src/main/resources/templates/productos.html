@@ -1,157 +1,157 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head>
-    <title>AGREGAR PRODUCTOS</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- Para que sea se adapte al dispositivo-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="/styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-</head>
+    <head>
+        <title>AGREGAR PRODUCTOS</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <!-- Para que sea se adapte al dispositivo-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="../static/css/styles.css">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    </head>
 
-<body>
-    <nav class="navbar-expand-sm d-flex bg-warning">
-        <div class="bg-dark p-1"></div>
-        <div class="container-fluid d-flex align-items-center ">
-            <img src="../static/assets/img/icono.png" alt="Logo" style="width: 70px;" class="rounded-pill ">
-            <div>
-                <span class="ps-3 p-2"
-                    style="color: black; font-size: 200%; font-family: Brush script MT; font-weight: bold">
-                    Polleria
-                </span>
-            </div>
-
-        </div>
-        <!-- OPCIONES MENU  --> 
-        <div class="container-fluid d-flex align-items-center justify-content-end ">
-            <ul class="navbar-nav">
-                
-                <li class="nav-item">
-                    <a class="nav-link text-dark" href="#">Quienes Somos</a>
-                </li>
-
-            </ul>
-        </div>
-        <div class="bg-dark p-1"></div>
-    </nav>
-
-    
-
-    <section>
-        <div class="m-5">
-            <div class="d-flex ">
-                <h5>Agregar Producto</h5>
-                <a th:href="@{/listar}" class="btn btn-success ms-auto p-2 ">Ver Productos</a>
-                
-            </div>
-            <p th:if="${error != null}" th:text="${error}"></p>
-            <form th:action="@{/agregar}" method="POST">
-
-                <div class="form-group">
-                    <label>Nombre Producto</label> <input type="text" class="form-control"
-                        name="nombre">
-                </div>
-
-                <div class="form-group">
-                    <label>Descripcion</label> <input  type="text" class="form-control" name="descripcion">
-                </div>
-
-                <div class="form-group">
-                    <label>Stock</label> <input  type="number" class="form-control"
-                        name="stock">
-                </div>
-
-                <div class="form-group">
-                    <label>Precio</label> <input type="number" class="form-control" value="0"
-                        name="precio">
-                </div>
-
-                <div class="form-group">
-                    <label >Tipo de Producto</label>
-                    <select name="tipo" class="form-select" aria-label="Default select example">
-                        <option selected>Seleccione el TIPO de Producto</option>
-                        <!-- Aca con theameleaf poner la ENUM DE PRODUCTOS-->
-                        <option value="Pollos">Pollos</option>
-                        <option value="Empanadas">Empanadas</option>
-                        <option value="Bebidas">Bebidas</option>
-                      </select>
-                </div>
-
-                <div class="form-group ">
-                    <label >Habilitado?</label>
-                    <select  name="habilitado" class="form-select" aria-label="Default select example">
-                        <option value="si">HABILITADO</option>
-                        
-                        <option value="no">NO HABILITADO</option>
-                    </select>
-                </div><br>
-
-
-                <!-- <div class="d-flex">
-                    <div class="">
-                        <label for="Image" class="form-label mt-3">Aqui agregue la imagen</label>
-                        <div class="d-flex">
-                            <input class="form-control " type="file" id="formFile" onchange="preview()">
-                            
-                        </div>
-                    </div>
-                    <div class="m-3">
-                        <img id="frame" class="m" src="" style="width: 100px; height: 100px;" />
-                    </div>
-                </div> -->
-
-
-
-                <button type="submit" class="btn btn-primary">Guardar</button>
-            </form>
-        </div>
-
-        <!-- <script>
-            function preview() {
-                frame.src = URL.createObjectURL(event.target.files[0]);
-            }
-    
-        </script> -->
-
-    </section>
-
-    <footer class=" pt-md-4 fondoImagen p-2 d-flex justify-content-evenly">
-
-        <div class="row">
-
-            <div class="col">
-                <h5>Informacion</h5>
+    <body>
+        <nav class="navbar-expand-sm d-flex bg-warning">
+            <div class="bg-dark p-1"></div>
+            <div class="container-fluid d-flex align-items-center ">
+                <img src="../static/assets/img/cliente.png" alt="Logo" style="width: 70px;" class="rounded-pill ">
                 <div>
-                    <ul class="list-unstyled text-small">
-                        <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Direccion: San Martin
-                                2525</a></li>
-                        <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Telefono </a></li>
-
-
-                    </ul>
+                    <span class="ps-3 p-2"
+                        style="color: black; font-size: 200%; font-family: Brush script MT; font-weight: bold">
+                        Polleria
+                    </span>
                 </div>
+
             </div>
+            <!-- OPCIONES MENU  --> 
+            <div class="container-fluid d-flex align-items-center justify-content-end ">
+                <ul class="navbar-nav">
 
-            <!-- <div class="col">
-                <img class="d-flex rounded-circle justify-content-end"" src="" style="width: 150px;">
-            </div> -->
-
-            <div class="col" style="text-align:right">
-                <h5>Nosotros</h5>
-                <ul class="list-unstyled text-small">
-                    <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Team</a></li>
-                    <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Locations</a></li>
-                    <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Privacy</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="#">Quienes Somos</a>
+                    </li>
 
                 </ul>
             </div>
-
-        </div>
-
-    </footer>
+            <div class="bg-dark p-1"></div>
+        </nav>
 
 
 
-</body>
+        <section>
+            <div class="m-5">
+                <div class="d-flex ">
+                    <h5>Agregar Producto</h5>
+                    <a th:href="@{/listar}" class="btn btn-success ms-auto p-2 ">Ver Productos</a>
+
+                </div>
+                <p th:if="${error != null}" th:text="${error}"></p>
+                <form th:action="@{/agregar}" method="POST">
+
+                    <div class="form-group">
+                        <label>Nombre Producto</label> <input type="text" class="form-control"
+                            name="nombre">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Descripcion</label> <input  type="text" class="form-control" name="descripcion">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Stock</label> <input  type="number" class="form-control"
+                            name="stock">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Precio</label> <input type="number" class="form-control" value="0"
+                            name="precio">
+                    </div>
+
+                    <div class="form-group">
+                        <label >Tipo de Producto</label>
+                        <select name="tipo" class="form-select" aria-label="Default select example">
+                            <option selected>Seleccione el TIPO de Producto</option>
+                            <!-- Aca con theameleaf poner la ENUM DE PRODUCTOS-->
+                            <option value="Pollos">Pollos</option>
+                            <option value="Empanadas">Empanadas</option>
+                            <option value="Bebidas">Bebidas</option>
+                          </select>
+                    </div>
+
+                    <div class="form-group ">
+                        <label >Habilitado?</label>
+                        <select  name="habilitado" class="form-select" aria-label="Default select example">
+                            <option value="si">HABILITADO</option>
+
+                            <option value="no">NO HABILITADO</option>
+                        </select>
+                    </div><br>
+
+
+                    <!-- <div class="d-flex">
+                        <div class="">
+                            <label for="Image" class="form-label mt-3">Aqui agregue la imagen</label>
+                            <div class="d-flex">
+                                <input class="form-control " type="file" id="formFile" onchange="preview()">
+
+                            </div>
+                        </div>
+                        <div class="m-3">
+                            <img id="frame" class="m" src="" style="width: 100px; height: 100px;" />
+                        </div>
+                    </div> -->
+
+
+
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </form>
+            </div>
+
+            <!-- <script>
+                function preview() {
+                    frame.src = URL.createObjectURL(event.target.files[0]);
+                }
+
+            </script> -->
+
+        </section>
+
+        <footer class=" pt-md-4 fondoImagen p-2 d-flex justify-content-evenly">
+
+            <div class="row">
+
+                <div class="col">
+                    <h5>Informacion</h5>
+                    <div>
+                        <ul class="list-unstyled text-small">
+                            <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Direccion: San Martin
+                                    2525</a></li>
+                            <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Telefono </a></li>
+
+
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <img class="d-flex rounded-circle justify-content-end" src="" style="width: 150px;">
+                </div>
+
+                <div class="col" style="text-align:right">
+                    <h5>Nosotros</h5>
+                    <ul class="list-unstyled text-small">
+                        <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Team</a></li>
+                        <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Locations</a></li>
+                        <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Privacy</a></li>
+
+                    </ul>
+                </div>
+
+            </div>
+
+        </footer>
+
+
+
+    </body>

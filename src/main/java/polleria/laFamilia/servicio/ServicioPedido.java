@@ -18,9 +18,9 @@ public class ServicioPedido {
         return repositorioPedido.findAll();     
     }
     
-    public void detallePedido( ) {
+//    public void detallePedido( ) {
         
-        Pedido nuevoPedido = new Pedido();
+ //       Pedido nuevoPedido = new Pedido();
         
 //        Double preciop = precio.doubleValue();
 //        productoNuevo.setNombre(nombre);
@@ -38,4 +38,4 @@ public class ServicioPedido {
 //        productoRepositorio.save(productoNuevo);
     }
 
-}
+

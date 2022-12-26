@@ -10,7 +10,7 @@ import javax.persistence.Id;
 public class VentaAux {
     
     @Id
-    @GeneratedValue
+    @GeneratedValue()
     private Integer id;
     private String producto;
     private Integer cantidad;

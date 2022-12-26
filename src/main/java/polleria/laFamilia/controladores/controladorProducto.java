@@ -14,16 +14,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import polleria.laFamilia.entidades.Producto;
+import polleria.laFamilia.entidades.Usuario;
 import polleria.laFamilia.entidades.VentaAux;
 import polleria.laFamilia.servicio.ServicioProducto;
 import polleria.laFamilia.repositorio.RepositorioProducto;
 import polleria.laFamilia.repositorio.RepositorioVentaAux;
+import polleria.laFamilia.servicio.ServicioUsuario;
 import polleria.laFamilia.servicio.ServicioVentaAux;
 
 
 @Controller
 @RequestMapping("/")
 public class controladorProducto {
+    
+    @Autowired
+    private ServicioUsuario usuarioServicio;
     
     @Autowired
     private RepositorioProducto repoProducto;
@@ -37,10 +42,38 @@ public class controladorProducto {
     @Autowired
     private ServicioVentaAux servVentaAux;
     
-   
     @GetMapping("/")
+    public String login(@RequestParam(required = false) String exitoReg, @RequestParam(required = false) String error, @RequestParam(required = false) String logout, ModelMap model){
+        
+        if (exitoReg != null) {
+            model.put("exitoReg", "Usuario cargado Correctamente");
+        }
+        
+        if (error != null) {
+            model.put("error", "Usuario o Contraseña incorrectos");
+           
+        }
+        if (logout != null) {
+            model.put("logout","Desconectado correctamente");
+           
+        }
+        
+        return "login";
+        
+    }
+    
+    @GetMapping("/panel")
+    public String adminScreen(@RequestParam (required = false) String login, ModelMap model) {
+        if (login !=null) {
+            model.put("exito","Logueado con exito");
+        }
+        return "panelScreen";
+    }
+    
+   
+    @GetMapping("/agregar")
     public String agregarProducto(){
-        // modelo.addAttribute("productos", new Producto());
+        
         return "productos";
     }
     
@@ -48,8 +81,7 @@ public class controladorProducto {
     public String productoAgregado(ModelMap modelo, @RequestParam String nombre, @RequestParam String descripcion, @RequestParam Integer stock,
             @RequestParam Integer precio, @RequestParam String tipo, @RequestParam String habilitado){
         try {
-            // modelo.addAttribute("productos", new Producto());
-            
+                        
             servProducto.agregarProducto(nombre, descripcion, stock, precio, tipo, habilitado);
         } catch (Exception ex) {
             modelo.put("error", ex.getMessage());
@@ -67,10 +99,10 @@ public class controladorProducto {
         return "pantallaProductos";
     }
     
-    @GetMapping("/modificar/{id}") //PATHVARIABLE
+    @GetMapping("/modificar/{id}")
     public String modificar(@PathVariable String id, ModelMap modelo) {
 
-        modelo.put("producto", servProducto.getOne(id));
+        modelo.addAttribute("producto", servProducto.getOne(id));
 
         return "productos_modificar";
     }
@@ -141,11 +173,30 @@ public class controladorProducto {
                
         return "redirect:/listar";
     
+    }  
     
-    
-    
-    
-    
+    @GetMapping("/registro")
+    public String registrarse(@RequestParam (required = false )String exitoReg, ModelMap model) {
+        
+        if (exitoReg != null) {
+            model.put("exitoReg", "Usuario cargado Correctamente");
+        }
+        return "registro";
+    }
+
+    @PostMapping("/registro")
+    public String guardarUsuario(ModelMap model, @RequestParam (required = false) String exitoReg, @RequestParam String email, @RequestParam String pw1, @RequestParam String pw2) {
+        try {
+            
+        Usuario u = usuarioServicio.crearUsuario(email, pw1, pw2);
+        model.put("exitoReg", "Usuario cargado Correctamente");
+        
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return "login";
+    }
 }
 
 
