@@ -1,6 +1,7 @@
 
 package polleria.laFamilia.servicio;
 
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,16 +21,35 @@ public class ServicioVentaAux {
     private RepositorioVentaAux ventaAuxRepositorio;
     
     @Transactional() 
-    public void agregarItem(String id) throws Exception {
+    public void agregarItem(String id, Integer cantidad) throws Exception {
 
         Producto producto = productoRepositorio.getById(id);
-        VentaAux ventaAux = new VentaAux();
+        List <VentaAux> ventaAux = ventaAuxRepositorio.findAll();
+        int bandera=0;
         
-        ventaAux.setProducto(producto.getNombre());
-        ventaAux.setCantidad(1);
-        ventaAux.setPrecio(producto.getPrecio());
+        for(VentaAux buscandoProducto : ventaAux){
+            if (buscandoProducto.getProducto().equals(producto.getNombre())) {
+                
+                buscandoProducto.setCantidad(buscandoProducto.getCantidad()+cantidad);
+                buscandoProducto.setPrecio(producto.getPrecio()*buscandoProducto.getCantidad());
+                
+                bandera = 1;
+    
+            } 
+            
         
-        ventaAuxRepositorio.save(ventaAux);
+        
+        }  
+        if (bandera == 0) {
+                VentaAux newVentaAux = new VentaAux();
+
+                newVentaAux.setProducto(producto.getNombre());
+                newVentaAux.setCantidad(cantidad);
+                newVentaAux.setPrecio(producto.getPrecio()*cantidad);
+
+                ventaAuxRepositorio.save(newVentaAux);
+            
+        }
 
     }
     
@@ -51,10 +71,11 @@ public class ServicioVentaAux {
             throw new Exception("No se encontro el ID solicitado");
         }
     }
+    @Transactional 
+    public Integer mostrarTotal(){
+        
+        return ventaAuxRepositorio.totalVentaAux();
+    }
     
-
-    
-    
-}
-
-    
+            
+ }

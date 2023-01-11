@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -61,7 +62,7 @@ public class controladorProducto {
         return "login";
         
     }
-    
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @GetMapping("/panel")
     public String adminScreen(@RequestParam (required = false) String login, ModelMap model) {
         if (login !=null) {
@@ -70,13 +71,13 @@ public class controladorProducto {
         return "panelScreen";
     }
     
-   
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")    
     @GetMapping("/agregar")
     public String agregarProducto(){
         
         return "productos";
     }
-    
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @PostMapping("/agregar")
     public String productoAgregado(ModelMap modelo, @RequestParam String nombre, @RequestParam String descripcion, @RequestParam Integer stock,
             @RequestParam Integer precio, @RequestParam String tipo, @RequestParam String habilitado){
@@ -90,15 +91,20 @@ public class controladorProducto {
         }
         return "productos";
     }
+    
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @GetMapping("/listar")
     public String listarProductos (ModelMap modelo){
         List<Producto> productos = repoProducto.findAll();
         List<VentaAux> ventaAuxs = repoVentaAux.findAll();
+        Integer totalVentaAux = repoVentaAux.totalVentaAux();
+        
+        modelo.put("ventaAuxTotal", totalVentaAux);
         modelo.put("ventaAuxs", ventaAuxs);
         modelo.put("productos", productos);
         return "pantallaProductos";
     }
-    
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/modificar/{id}")
     public String modificar(@PathVariable String id, ModelMap modelo) {
 
@@ -106,7 +112,7 @@ public class controladorProducto {
 
         return "productos_modificar";
     }
-    
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @PostMapping("/modificar/{id}")
     public String productoModificado(ModelMap modelo, @PathVariable String id, @RequestParam String nombre, @RequestParam String descripcion, @RequestParam Integer stock,
             @RequestParam Integer precio, @RequestParam String tipo, @RequestParam String habilitado){
@@ -126,7 +132,7 @@ public class controladorProducto {
     }
     
     
-    
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/alta/{id}")
     public String alta(@PathVariable String id) {
 
@@ -137,6 +143,7 @@ public class controladorProducto {
             return "redirect:/";
         }
     }
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/baja/{id}")
     public String baja(@PathVariable String id) {
 
@@ -149,11 +156,13 @@ public class controladorProducto {
     }
     
 
-    @GetMapping("/ventaAux/{id}")
-    public String sumarProducto(@PathVariable String id) {
+    
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+    @PostMapping("/ventaAux")
+    public String sumaProducto(@RequestParam String id, @RequestParam Integer cantidad) {
         
         try {
-            servVentaAux.agregarItem(id);
+            servVentaAux.agregarItem(id, cantidad);
         } catch (Exception e) {
             
         }
@@ -162,6 +171,7 @@ public class controladorProducto {
         
     }
     
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @GetMapping("/sacarVentaAux/{id}")
     public String sacarProducto(@PathVariable Integer id) {
         
