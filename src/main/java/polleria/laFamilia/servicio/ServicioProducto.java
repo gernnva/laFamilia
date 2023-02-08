@@ -8,12 +8,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import polleria.laFamilia.entidades.Producto;
 import polleria.laFamilia.repositorio.RepositorioProducto;
+import polleria.laFamilia.repositorio.RepositorioVentaAux;
 
 @Service
 public class ServicioProducto {
     
     @Autowired
     private RepositorioProducto productoRepositorio;
+    
+    @Autowired
+    private RepositorioVentaAux repoVentaAux;
     
     public void validaciones(String nombre, String descripcion, Integer precio, String tipo) throws Exception { 
         if (nombre == null || nombre.isEmpty()) {
@@ -141,6 +145,11 @@ public class ServicioProducto {
         }
         return productoRepositorio.getById(id);
     }
+    
+    
+        
+        
+    
 }
 
 

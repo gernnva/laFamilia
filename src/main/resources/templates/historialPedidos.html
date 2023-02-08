@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th=http://www.thymeleaf.org xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="/fragments/header :: head"> </head>
+
+<body>
+    <nav th:replace="/fragments/navbar :: nav"></nav>
+    <div class="d-flex">
+        <div>
+            <table class="table table-success table-striped col-9 m-3" th:each="pedido : ${pedidos}">
+                <thead>
+                    <tr>
+                        <th>N°</th>
+                        <th>Domicilio</th>
+                        <th>Cliente</th>
+                        <th>Fecha Creado</th>
+                        <th>Fecha Entregado</th>
+                        <th>Estado</th>
+                        <th>Pagado</th>
+                        <th>Productos</th>
+                        <th>Total Pedido</th>
+                    </tr>
+                </thead>
+
+                <body>
+                    <td width="1%" th:text="${pedido.numPedido}"></td>
+                    <td width="10%" th:text="${pedido.domicilio}"></td>
+                    <td width="10%" th:text="${pedido.cliente}"></td>
+                    <td width="7%" th:text="${pedido.creado}"></td>
+                    <td width="7%" th:text="${pedido.entregado}"></td>
+                    <td width="10%" th:text="${pedido.estadoPedido}"></td>
+                    <td width="5%" th:text="${pedido.pagado}"></td>
+                    <td width="10%" th:text="${pedido.productos}"></td>
+                    <td width="10%" th:text="'$ ' +${pedido.totalPedido}"></td>
+                </body>
+
+
+            </table>
+        </div>
+
+        <div class="m-3 col-3">
+            <button class="btn btn-success btn-lg btn-block">
+                Volver
+            </button>
+        </div>
+    </div>    
+
+</body>
+
+</html>

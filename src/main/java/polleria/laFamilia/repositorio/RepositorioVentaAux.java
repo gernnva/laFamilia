@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import polleria.laFamilia.entidades.VentaAux;
 
 @Repository
-public interface RepositorioVentaAux extends JpaRepository<VentaAux, Integer>{
+public interface RepositorioVentaAux extends JpaRepository<VentaAux, String>{
     
     @Query("SELECT SUM(a.precio) FROM VentaAux a")
     public Integer totalVentaAux ();

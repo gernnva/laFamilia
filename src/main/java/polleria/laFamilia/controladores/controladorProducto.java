@@ -2,6 +2,7 @@
 package polleria.laFamilia.controladores;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import polleria.laFamilia.entidades.VentaAux;
 import polleria.laFamilia.servicio.ServicioProducto;
 import polleria.laFamilia.repositorio.RepositorioProducto;
 import polleria.laFamilia.repositorio.RepositorioVentaAux;
+import polleria.laFamilia.servicio.ServicioPedido;
 import polleria.laFamilia.servicio.ServicioUsuario;
 import polleria.laFamilia.servicio.ServicioVentaAux;
 
@@ -42,6 +44,9 @@ public class controladorProducto {
     
     @Autowired
     private ServicioVentaAux servVentaAux;
+    
+    @Autowired
+    private ServicioPedido servPedido;
     
     @GetMapping("/")
     public String login(@RequestParam(required = false) String exitoReg, @RequestParam(required = false) String error, @RequestParam(required = false) String logout, ModelMap model){
@@ -173,10 +178,12 @@ public class controladorProducto {
     
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @GetMapping("/sacarVentaAux/{id}")
-    public String sacarProducto(@PathVariable Integer id) {
-        
+    public String sacarProducto(@PathVariable String id) {
+         
         try {
+           
             servVentaAux.borrarItem(id);
+            
         } catch (Exception e) {
             
         }
@@ -207,6 +214,21 @@ public class controladorProducto {
 
         return "login";
     }
+    
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+    @PostMapping("/cargarVenta")
+    public String cargarVenta(@RequestParam String clienteNombre, @RequestParam String clienteDomicilio) {
+        
+        try {
+            servPedido.agregarPedido(clienteNombre, clienteDomicilio);
+        } catch (Exception e) {
+            
+        }
+               
+        return "redirect:/pedido/historial";
+        
+    }
+            
 }
 
 

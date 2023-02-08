@@ -20,6 +20,9 @@ public class ServicioVentaAux {
     @Autowired
     private RepositorioVentaAux ventaAuxRepositorio;
     
+    @Autowired
+    private ServicioProducto productoServicio;
+    
     @Transactional() 
     public void agregarItem(String id, Integer cantidad) throws Exception {
 
@@ -28,41 +31,54 @@ public class ServicioVentaAux {
         int bandera=0;
         
         for(VentaAux buscandoProducto : ventaAux){
-            if (buscandoProducto.getProducto().equals(producto.getNombre())) {
+            if (buscandoProducto.getProducto().equals(producto.getTipo()+" "+producto.getNombre())) {
                 
                 buscandoProducto.setCantidad(buscandoProducto.getCantidad()+cantidad);
                 buscandoProducto.setPrecio(producto.getPrecio()*buscandoProducto.getCantidad());
                 
+                producto.setStock((producto.getStock() - cantidad));
                 bandera = 1;
     
             } 
-            
-        
-        
         }  
         if (bandera == 0) {
                 VentaAux newVentaAux = new VentaAux();
 
-                newVentaAux.setProducto(producto.getNombre());
+                newVentaAux.setProducto(producto.getTipo() + " " + producto.getNombre());
                 newVentaAux.setCantidad(cantidad);
                 newVentaAux.setPrecio(producto.getPrecio()*cantidad);
 
                 ventaAuxRepositorio.save(newVentaAux);
+                producto.setStock((producto.getStock() - cantidad));
             
         }
 
     }
     
-    public void borrarItem (Integer id){
+    public void borrarItem (String id){
         
+        List<Producto> producto = productoRepositorio.findAll();
         VentaAux ventaAux = ventaAuxRepositorio.getById(id);
+        
+        ;
+        
+        
+        
+        for(Producto buscandoProducto : producto){
+            String armado = buscandoProducto.getTipo()+ " " + buscandoProducto.getNombre();
+            if(ventaAux.getProducto().equalsIgnoreCase(armado)){
+                buscandoProducto.setStock(buscandoProducto.getStock()+ventaAux.getCantidad());
+                
+            }
+        }
+        
         
         ventaAuxRepositorio.delete(ventaAux);
         
     }
     
     @Transactional()
-    public void eliminarProducto(Integer id) throws Exception {
+    public void eliminarProducto(String id) throws Exception {
      Optional <VentaAux> respuesta = ventaAuxRepositorio.findById(id);
         if (respuesta.isPresent()) {
             VentaAux item = ventaAuxRepositorio.getById(id);
@@ -77,5 +93,10 @@ public class ServicioVentaAux {
         return ventaAuxRepositorio.totalVentaAux();
     }
     
+    public void borrarTodo(){
+        ventaAuxRepositorio.deleteAll();
+    }
+    
+
             
  }

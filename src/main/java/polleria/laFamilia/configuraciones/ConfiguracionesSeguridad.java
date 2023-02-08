@@ -28,7 +28,7 @@ public class ConfiguracionesSeguridad extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/css/*", "/js/*", "/img/*", "/**").permitAll()//cualquier usuario sin estar logueado //puede acceder a estos archivos
+        http.authorizeRequests().antMatchers("/css/**", "/js/**", "/img/**", "/**").permitAll()//cualquier usuario sin estar logueado //puede acceder a estos archivos
                 .and().formLogin()//configuramos el login                                                             
                         .loginPage("/") // Donde esta mi login
                         .loginProcessingUrl("/logincheck")//url que autentica un cliente
