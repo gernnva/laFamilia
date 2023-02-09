@@ -63,7 +63,7 @@ public class VentaAux {
 
     @Override
     public String toString() {
-        return "- Producto: " + producto + ", Cantidad: " + cantidad + ", Precio: $" + precio + "/n";
+        return "Producto: " + producto + ", Cantidad: " + cantidad + ", Precio: $" + precio + "\n";
     }
     
     

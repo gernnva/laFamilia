@@ -5,9 +5,10 @@
 
 <body>
     <nav th:replace="/fragments/navbar :: nav"></nav>
+
     <div class="d-flex">
-        <div>
-            <table class="table table-success table-striped col-9 m-3" th:each="pedido : ${pedidos}">
+        <div  class="table table-success table-striped col-md-9 mt-2">
+            <table th:each="pedido : ${pedidos}">
                 <thead>
                     <tr>
                         <th>N°</th>
@@ -23,27 +24,46 @@
                 </thead>
 
                 <body>
-                    <td width="1%" th:text="${pedido.numPedido}"></td>
-                    <td width="10%" th:text="${pedido.domicilio}"></td>
-                    <td width="10%" th:text="${pedido.cliente}"></td>
-                    <td width="7%" th:text="${pedido.creado}"></td>
-                    <td width="7%" th:text="${pedido.entregado}"></td>
-                    <td width="10%" th:text="${pedido.estadoPedido}"></td>
-                    <td width="5%" th:text="${pedido.pagado}"></td>
-                    <td width="10%" th:text="${pedido.productos}"></td>
-                    <td width="10%" th:text="'$ ' +${pedido.totalPedido}"></td>
+                    <td th:text="${pedido.numPedido}"></td>
+                    <td th:text="${pedido.domicilio}"></td>
+                    <td th:text="${pedido.cliente}"></td>
+                    <td th:text="${pedido.creado}">
+
+                    </td>
+                    <td th:text="${pedido.entregado}"></td>
+                    <td class="d-flex">
+                        <p class="" th:text="${pedido.estadoPedido} "></p>
+                        <a th:href="@{#}">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                    </td>
+                    <td >
+                        <i th:if="${pedido.pagado}" class="fa fa-circle text-success"></i>
+                        <i th:unless="${pedido.pagado}" class="fa fa-circle" style="color:red;"></i>
+                    </td>
+                    <td th:text="${pedido.productos}"></td>
+                    <td th:text="'$ ' +${pedido.totalPedido}"></td>
                 </body>
 
 
             </table>
         </div>
 
-        <div class="m-3 col-3">
-            <button class="btn btn-success btn-lg btn-block">
-                Volver
-            </button>
+        <div class="col-m-3 m-2 w-100">
+            <a th:href="@{/panel}" class="btn btn-info btn-lg justify-content-center w-100">Volver</a>
+
+            <div class="w-100 mt-2">
+                <div class="card text-center bg-success text-white">
+                    <h2>Total Ventas</h2>
+                    <h3 th:text="'$ '+${totalHistorialPedido}"></h3>
+                </div>
+            </div>
         </div>
-    </div>    
+
+        
+
+
+    </div>
 
 </body>
 

@@ -57,25 +57,12 @@ public class ServicioPedido {
         
         
     }
-    
-//    public void detallePedido( ) {
+    public Integer totalVentasPedidos (){
+        return repoPedido.totalVentasPedidos();
         
- //       Pedido nuevoPedido = new Pedido();
-        
-//        Double preciop = precio.doubleValue();
-//        productoNuevo.setNombre(nombre);
-//        productoNuevo.setDescripcion(descripcion);
-//        productoNuevo.setStock(stock);
-//        productoNuevo.setPrecio(preciop);
-//        productoNuevo.setTipo(tipo);
-//          if (habilitado.equals("si")) {
-//              productoNuevo.setHabilitado(true);
-//          } else {
-//              productoNuevo.setHabilitado(false);
-//          }
-//
-//
-//        productoRepositorio.save(productoNuevo);
     }
+    
+
+}
 
 

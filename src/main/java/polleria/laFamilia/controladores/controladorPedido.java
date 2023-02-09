@@ -22,7 +22,9 @@ public class controladorPedido {
     @GetMapping("/historial")
     public String listarPedidos (ModelMap modelo){
         List<Pedido> pedidos = repoPedido.findAll();
+        Integer totalPedidos = repoPedido.totalVentasPedidos();
 
+        modelo.put("totalHistorialPedido", totalPedidos);
         modelo.put("pedidos", pedidos);
         return "historialPedidos";
     } 
