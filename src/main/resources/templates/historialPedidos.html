@@ -6,15 +6,52 @@
 <body>
     <nav th:replace="/fragments/navbar :: nav"></nav>
 
-    <div class="d-flex">
-        <div  class="table table-success table-striped col-md-9 mt-2">
-            <table th:each="pedido : ${pedidos}">
+    <div>
+        <div>
+
+            <div class="d-flex">
+                <form class="d-flex" th:action="@{/pedido/pedidosPorFecha}" method="GET">
+                    <div class="d-flex">
+                        <label th:for="fechaPedido">Fecha Pedido</label>
+                        <select class="form-select" name="fechaPedido">
+                            <option th:each="pedido, pedidoIndex : ${pedidos}"
+                                th:if="${pedidos.![creadoFecha].subList(0, pedidoIndex.index).contains(pedido.creadoFecha) == false}"
+                                th:value="${pedido.creadoFecha}"
+                                th:text="${#dates.format(pedido.creadoFecha, 'yyyy-MM-dd')}"></option>
+                        </select>
+                        <button type="submit" class="btn btn-primary">Filtrar</button>
+
+                </form>
+            </div>
+            <div class="d-flex">
+                <form class="d-flex" th:action="@{/pedido/pedidosPorCliente}" method="GET">
+                    <div class="d-flex">
+                        <label th:for="fechaPedido">Cliente</label>
+                        <select class="form-select" name="cliente">
+                            <option th:each="pedido, pedidoIndex : ${pedidos}"
+                                th:if="${pedidos.![cliente].subList(0, pedidoIndex.index).contains(pedido.cliente) == false}"
+                                th:value="${pedido.cliente}" 
+                                th:text="${pedido.cliente}"></option>
+                        </select>
+                        <button type="submit" class="btn btn-primary">Filtrar</button>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class=" d-flex">
+        <div class="table table-success table-striped col-md-9 mt-2 d-flex">
+            <table>
                 <thead>
                     <tr>
                         <th>N°</th>
                         <th>Domicilio</th>
                         <th>Cliente</th>
                         <th>Fecha Creado</th>
+                        <th>Hora Creado</th>
                         <th>Fecha Entregado</th>
                         <th>Estado</th>
                         <th>Pagado</th>
@@ -23,35 +60,40 @@
                     </tr>
                 </thead>
 
-                <body>
-                    <td th:text="${pedido.numPedido}"></td>
-                    <td th:text="${pedido.domicilio}"></td>
-                    <td th:text="${pedido.cliente}"></td>
-                    <td th:text="${pedido.creado}">
-
-                    </td>
-                    <td th:text="${pedido.entregado}"></td>
-                    <td class="d-flex">
-                        <p class="" th:text="${pedido.estadoPedido} "></p>
-                        <a th:href="@{#}">
-                            <i class="fa fa-edit"></i>
-                        </a>
-                    </td>
-                    <td >
-                        <i th:if="${pedido.pagado}" class="fa fa-circle text-success"></i>
-                        <i th:unless="${pedido.pagado}" class="fa fa-circle" style="color:red;"></i>
-                    </td>
-                    <td th:text="${pedido.productos}"></td>
-                    <td th:text="'$ ' +${pedido.totalPedido}"></td>
-                </body>
+                <tbody th:each="pedido : ${pedidos}">
+                    <tr>
+                        <td th:text="${pedido.numPedido}"></td>
+                        <td th:text="${pedido.domicilio}"></td>
+                        <td th:text="${pedido.cliente}"></td>
+                        <td th:text="${pedido.creadoFecha}"></td>
+                        <td th:text="${pedido.creadoHora}"></td>
+                        <td th:text="${pedido.entregado}"></td>
+                        <td class="d-flex">
+                            <p class="" th:text="${pedido.estadoPedido} "></p>
+                            <a th:href="@{/pedido/estadoPedido/__${pedido.numPedido}__}">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <i th:if="${pedido.pagado}" class="fa fa-circle text-success"></i>
+                            <i th:unless="${pedido.pagado}" class="fa fa-circle" style="color:red;"></i>
+                            
+                            <a th:href="@{/pedido/pagado/__${pedido.numPedido}__}">
+                                <i class="fas fa-shopping-cart"></i>
+                            </a>
+                        </td>
+                        <td th:text="${pedido.productos}"></td>
+                        <td th:text="'$ ' +${pedido.totalPedido}"></td>
+                    </tr>
+                </tbody>
 
 
             </table>
         </div>
 
-        <div class="col-m-3 m-2 w-100">
+        <div class="col-m-3 m-2 w-100 ">
             <a th:href="@{/panel}" class="btn btn-info btn-lg justify-content-center w-100">Volver</a>
-
+            <a th:href="@{/pedido/historial}" class="btn mt-1 btn-secondary btn-lg justify-content-center w-100">Historico</a>
             <div class="w-100 mt-2">
                 <div class="card text-center bg-success text-white">
                     <h2>Total Ventas</h2>
@@ -60,10 +102,8 @@
             </div>
         </div>
 
-        
-
-
     </div>
+
 
 </body>
 

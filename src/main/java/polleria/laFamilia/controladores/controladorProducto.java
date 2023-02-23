@@ -122,7 +122,6 @@ public class controladorProducto {
     public String productoModificado(ModelMap modelo, @PathVariable String id, @RequestParam String nombre, @RequestParam String descripcion, @RequestParam Integer stock,
             @RequestParam Integer precio, @RequestParam String tipo, @RequestParam String habilitado){
         try {
-            // modelo.addAttribute("productos", new Producto());
             
             servProducto.modificarProducto(id, nombre, descripcion, stock, precio, tipo, habilitado);
             

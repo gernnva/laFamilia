@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import polleria.laFamilia.entidades.Pedido;
 import polleria.laFamilia.entidades.VentaAux;
 import polleria.laFamilia.enums.EstadoPedido;
@@ -42,7 +43,8 @@ public class ServicioPedido {
         }
              
         newPedido.setCliente(cliente);
-        newPedido.setCreado(new Date());
+        newPedido.setCreadoFecha(new Date() );
+        newPedido.setCreadoHora(new Date());
         newPedido.setDomicilio(domicilio);
         newPedido.setEstadoPedido(EstadoPedido.EN_PREPARACION);
         newPedido.setPagado(false);
@@ -61,7 +63,36 @@ public class ServicioPedido {
         return repoPedido.totalVentasPedidos();
         
     }
-    
+    @Transactional
+    public void modificarEstado (Integer id, EstadoPedido estadoPedido) {
+        Pedido pedido = repoPedido.getReferenceById(id);
+        
+        pedido.setEstadoPedido(estadoPedido);
+        
+        if (estadoPedido == EstadoPedido.ENTREGADO) {
+            pedido.setEntregado(new Date());
+            
+        }
+        
+    }
+    @Transactional
+    public void pagado(Integer id) {
+
+        Pedido pedido = repoPedido.getOne(id);
+        if (pedido.isPagado() == true) {
+            pedido.setPagado(false);
+        }else {
+            pedido.setPagado(true);
+        }
+        
+    }
+
+    @Transactional()
+    public void noPagado(Integer id) {
+
+        Pedido pedido = repoPedido.getOne(id);
+        pedido.setPagado(false);
+    }
 
 }
 

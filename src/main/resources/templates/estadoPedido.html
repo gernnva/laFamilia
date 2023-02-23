@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th=http://www.thymeleaf.org xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="/fragments/header :: head"> </head>
+    
+<body>
+
+    <form th:action="@{/pedido/estadoPedido/__${estadoPedido.numPedido}__}" method="POST">
+    
+
+        <div class="card" style="background-color: crimson; width: 300px; border: 5px solid black; padding: 50px; margin-left: auto;
+        margin-right: auto">
+            <label th:for="estadoPedido">Estado Pedido</label>
+            <select class="form-select" name="estadoPedido">
+                <option th:each="opcion : ${estadoDelEnvio}"
+                        th:value="${opcion}"
+                        th:text="${opcion}"></option>
+
+                
+                
+                
+
+            
+            </select><br>
+        <button type="submit" class="btn btn-primary">Modificar</button>
+
+    </form>
+    
+</body>
+</html>

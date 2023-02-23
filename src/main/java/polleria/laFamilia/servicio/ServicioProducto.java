@@ -104,29 +104,6 @@ public class ServicioProducto {
         return productoRepositorio.getOne(id);
     }
    
-//    @Transactional()
-//    public void modificarProducto(String id, String nombre, String descripcion, Integer precio, String tipo, String habilitado) throws Exception {
-//     validaciones(nombre, descripcion ,precio , tipo);
-//     Optional <Producto> respuesta = productoRepositorio.findById(id);
-//        if (respuesta.isPresent()) {
-//        Producto productoNuevo = respuesta.get();
-//        
-//         productoNuevo.setNombre(nombre);
-//         productoNuevo.setDescripcion(descripcion);
-//         productoNuevo.setPrecio(precio);
-//         productoNuevo.setTipo(tipo);
-//         if (habilitado.equals("si")) {
-//            productoNuevo.setHabilitado(true);
-//        } else {
-//            productoNuevo.setHabilitado(false);
-//        }
-//         
-//      productoRepositorio.save(productoNuevo);
-//    } else {
-//            throw new Exception("No se encontro el ID solicitado");
-//        }
-//    }
-   
     @Transactional()
     public void eliminarProducto(String id) throws Exception {
      Optional <Producto> respuesta = productoRepositorio.findById(id);

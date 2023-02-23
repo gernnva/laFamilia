@@ -21,6 +21,7 @@
                 <a th:href="@{/listar}" class="btn btn-success ms-auto p-2 ">Ver Productos</a>
                 
             </div>
+            
             <p th:if="${error != null}" th:text="${error}"></p>
             <form th:action="@{/modificar/__${producto.id}__}" method="POST">
 
@@ -51,7 +52,7 @@
                         <option value="Pollos">Pollos</option>
                         <option value="Empanadas">Empanadas</option>
                         <option value="Bebidas">Bebidas</option>
-                      </select>
+                    </select>
                 </div>
 
                 <div class="form-group ">
