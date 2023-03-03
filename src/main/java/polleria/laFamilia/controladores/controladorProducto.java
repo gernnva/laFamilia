@@ -269,5 +269,12 @@ public class controladorProducto {
         return "redirect:/pedido/historial";
 
     }
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+    @GetMapping("/limpiarPedido")
+    public String limpiarPedido (){
+        servVentaAux.borrarTodo();
+        System.out.println("llsls");
+        return "redirect:/listar";
+    }
 
 }
