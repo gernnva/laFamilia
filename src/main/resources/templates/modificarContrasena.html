@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>Modificar Contraseña </title>
+        <head th:replace="/fragments/header :: head"> </head>
+    </head>
+
+    <body>
+
+        <nav th:replace="/fragments/navbar :: nav"></nav>
+
+        <div class="d-flex justify-content-center">
+            <div th:if="${registroError}!=null" class="card text-white bg-danger m-3 col-4 ">
+                <div class="card-body">
+                    <h5 class="card-title">Error</h5>
+                    <p class="card-text" th:text="${registroError}"></p>
+                </div>
+            </div>
+            <div th:if="${actualizarContrasenaError}!=null" class="card text-white bg-danger m-3 col-4 ">
+                <div class="card-body">
+                    <h5 class="card-title-center">Error</h5>
+                    <p class="card-text" th:text="${actualizarContrasenaError}"></p>
+                </div>
+            </div>
+            <div th:if="${modificacionOK}!=null" class="card text-white bg-success m-3 col-4 ">
+                <div class="card-body">
+                    <h5 class="card-title">Exito</h5>
+                    <p class="card-text" th:text="${modificacionOK}"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="container m-5">
+
+            <form th:action="@{/contrasenaModificada}" method="POST">
+                
+                <input name="id" hidden th:value="${usuarioLogueado.id}">
+                <div class="form-group">
+                    <label>Email</label> 
+                    <input th:value="${usuarioLogueado.email}" type="email" class="form-control" name="email" readonly onmousedown="return false">
+                </div>
+
+                <div class="form-group">
+                    <label>Actual Password</label> 
+                    <input type="password" class="form-control" name="actualPW" placeholder="Contraseña actual">
+                </div>
+
+                <div class="form-group">
+                    <label>Nuevo Password</label> 
+                    <input type="password" class="form-control" name="newPW1" placeholder="Nueva Contraseña" minlength="8">
+                </div>
+                
+                <div class="form-group">
+                    <label>Repetir Nuevo Password</label> <input type="password" class="form-control" name="newPW2" placeholder="Repita la nueva contraseña" minlength="8">
+                </div>
+
+                <button type="submit" class="btn btn-primary"> Actualizar </button>
+            </form>
+
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,31 @@
+<form th:action="@{/ventaAux}" method="POST">
+    <input hidden th:value="${producto.id}" name="id">
+    <td th:text="${producto.nombre}"></td>
+    <td th:text=" '$' + ${producto.precio}"></td>
+    <td th:text="${producto.stock}"></td>
+    <td>
+        <input name="cantidad" type="number" value="0" min="1" max="5">
+
+    </td>
+    <td>
+        <i th:if="${producto.habilitado}" class="fa fa-circle text-success"></i>
+        <i th:unless="${producto.habilitado}" class="fa fa-circle" style="color:red;"></i>
+        <a sec:authorize="hasRole('ADMIN')" th:href="@{/alta/__${producto.id}__}"><i class="fa fa-arrow-up"></i></a>
+        
+        <a sec:authorize="hasRole('ADMIN')" th:href="@{/baja/__${producto.id}__}"><i class="fa fa-ban"></i></a>
+    </td>
+    <td>
+        <a sec:authorize="hasRole('ADMIN')" class="btn btn-warning" th:href="@{/modificar/__${producto.id}__}">
+            <i class="fa fa-edit"></i></a>
+
+        <button type="submit" class="btn btn-info" th:if="${producto.habilitado}">
+
+            <i  class="fas fa-shopping-cart"></i>
+        </button>
+
+
+        <a th:unless="${producto.habilitado}" class="btn btn-info disabled">
+            <i class="fas fa-shopping-cart"></i></a>
+
+    </td>
+</form>

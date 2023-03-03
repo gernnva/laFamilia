@@ -9,245 +9,129 @@
 
     <section>
 
-        <div class="row py-5 mx-3">
+        <div class="p-3">
 
-            <div class="d-flex ">
+            <div class="d-flex mb-2 ">
                 <h3>Productos en STOCK</h3>
-                <a th:href="@{/panel}" class="btn btn-success ms-auto p-2 ">Volver</a>
-            </div>
-
-            <div class="col-8" style="overflow-y: scroll; height: 500px;">
-                <!--TABLA POLLOS-->
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th text='pollos'>***POLLOS***</th>
-                        </tr>
-                    </thead>
-                    <thead>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Precio</th>
-                            <th>Stock</th>
-                            <th>Cantidad</th>
-                            <th>¿Habilitado?</th>
-                        </tr>
-                    </thead>
-
-                    <body>
-                        <tr th:if="${ producto.tipo == 'Pollos'}" th:each="producto : ${productos}">
-                            <form th:action="@{/ventaAux}" method="POST">
-                                <input hidden th:value="${producto.id}" name="id">
-                                <td th:text="${producto.nombre}"></td>
-                                <td th:text=" '$' + ${producto.precio}"></td>
-                                <td th:text="${producto.stock}"></td>
-                                <td>
-                                    <input name="cantidad" type="number" value="0" min="1" max="5">
-
-                                </td>
-                                <td>
-                                    <i th:if="${producto.habilitado}" class="fa fa-circle text-success"></i>
-                                    <i th:unless="${producto.habilitado}" class="fa fa-circle" style="color:red;"></i>
-                                    <a sec:authorize="hasRole('ADMIN')" th:href="@{/alta/__${producto.id}__}"><i class="fa fa-arrow-up"></i></a>
-                                    
-                                    <a sec:authorize="hasRole('ADMIN')" th:href="@{/baja/__${producto.id}__}"><i class="fa fa-ban"></i></a>
-                                </td>
-                                <td>
-                                    <a sec:authorize="hasRole('ADMIN')" class="btn btn-warning" th:href="@{/modificar/__${producto.id}__}">
-                                        <i class="fa fa-edit"></i></a>
-
-                                    <button type="submit" class="btn btn-info" th:if="${producto.habilitado}">
-
-                                        <i  class="fas fa-shopping-cart"></i>
-                                    </button>
-
-
-                                    <a th:unless="${producto.habilitado}" class="btn btn-info disabled">
-                                        <i class="fas fa-shopping-cart"></i></a>
-
-                                </td>
-                            </form>
-
-                        </tr>
-
-                    </body>
-                </table>
-                <!--TABLA EMPANADAS-->
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>*EMPANADA*</th>
-                        </tr>
-                    </thead>
-                    <thead>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Precio</th>
-                            <th>Stock</th>
-                            <th>Cantidad</th>
-                            <th>¿Habilitado?</th>
-                        </tr>
-                    </thead>
-
-                    <body>
-                        <tr th:if="${ producto.tipo == 'Empanadas'}" th:each="producto : ${productos}">
-                            <form th:action="@{/ventaAux}" method="POST">
-                                <input hidden th:value="${producto.id}" name="id">
-                                <td th:text="${producto.nombre}"></td>
-                                <td th:text=" '$' + ${producto.precio}"></td>
-                                <td th:text="${producto.stock}"></td>
-                                <td>
-                                    <input name="cantidad" type="number" value="0" min="1" max="5">
-
-                                </td>
-                                <td>
-                                    <i th:if="${producto.habilitado}" class="fa fa-circle text-success"></i>
-                                    <i th:unless="${producto.habilitado}" class="fa fa-circle" style="color:red;"></i>
-                                    <a sec:authorize="hasRole('ADMIN')" th:href="@{/alta/__${producto.id}__}"><i class="fa fa-arrow-up"></i></a>
-                                    
-                                    <a sec:authorize="hasRole('ADMIN')" th:href="@{/baja/__${producto.id}__}"><i class="fa fa-ban"></i></a>
-                                </td>
-                                <td>
-                                    <a sec:authorize="hasRole('ADMIN')" class="btn btn-warning" th:href="@{/modificar/__${producto.id}__}">
-                                        <i class="fa fa-edit"></i></a>
-
-                                    <button type="submit" class="btn btn-info" th:if="${producto.habilitado}">
-
-                                        <i  class="fas fa-shopping-cart"></i>
-                                    </button>
-
-
-                                    <a th:unless="${producto.habilitado}" class="btn btn-info disabled">
-                                        <i class="fas fa-shopping-cart"></i></a>
-
-                                </td>
-                            </form>
-
-                        </tr>
-
-                    </body>
-                </table>
-                <!--TABLA BEBIDAS-->
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>***BEBIDA***</th>
-                        </tr>
-                    </thead>
-                    <thead>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Precio</th>
-                            <th>Stock</th>
-                            <th>Cantidad</th>
-                            <th>¿Habilitado?</th>
-                        </tr>
-                    </thead>
-
-                    <body>
-
-                        <tr th:if="${ producto.tipo == 'Bebidas'}" th:each="producto : ${productos}">
-                            <form th:action="@{/ventaAux}" method="POST">
-                                <input hidden th:value="${producto.id}" name="id">
-                                <td th:text="${producto.nombre}"></td>
-                                <td th:text=" '$' + ${producto.precio}"></td>
-                                <td th:text="${producto.stock}"></td>
-                                <td>
-                                    <input name="cantidad" type="number" value="0" min="1" max="5">
-
-                                </td>
-                                <td>
-                                    <i th:if="${producto.habilitado}" class="fa fa-circle text-success"></i>
-                                    <i th:unless="${producto.habilitado}" class="fa fa-circle" style="color:red;"></i>
-                                    <a sec:authorize="hasRole('ADMIN')" th:href="@{/alta/__${producto.id}__}"><i class="fa fa-arrow-up"></i></a>
-                                    
-                                    <a sec:authorize="hasRole('ADMIN')" th:href="@{/baja/__${producto.id}__}"><i class="fa fa-ban"></i></a>
-                                </td>
-                                <td>
-                                    <a sec:authorize="hasRole('ADMIN')" class="btn btn-warning" th:href="@{/modificar/__${producto.id}__}">
-                                        <i class="fa fa-edit"></i></a>
-
-                                    <button type="submit" class="btn btn-info" th:if="${producto.habilitado}">
-
-                                        <i  class="fas fa-shopping-cart"></i>
-                                    </button>
-
-
-                                    <a th:unless="${producto.habilitado}" class="btn btn-info disabled">
-                                        <i class="fas fa-shopping-cart"></i></a>
-
-                                </td>
-                            </form>
-
-                        </tr>
-
-                    </body>
-                </table>
-
-            </div>
-
-            <div class="col-4" style="overflow-y: scroll; height: 500px;">
-                <form th:action="@{/cargarVenta}" method="POST">
-                    <div class="form-group">
-                        <label>Nombre Cliente</label> <input type="text" class="form-control" name="clienteNombre" placeholder="Ingrese aqui el nombre" required="true">
-                    </div>
-                    <div class="form-group">
-                        <label>Domicilio</label> <input type="text" class="form-control" name="clienteDomicilio" placeholder="Ingrese aqui el domicilio" required="true">
-                    </div>
+                <div class="ms-auto">
+                    <a th:href="@{/panel}" class="btn btn-success ms-auto p-2 ">Volver al Panel</a>
+                    <a th:href="@{/pedido/historial}" class="btn btn-success ms-auto p-2 ">Historial Pedidos</a>
+                </div>
                 
-                    <!--TABLA VENTAS-->
+            </div>
+            <div class="d-flex">
+                <div class="col-8" style="overflow-y: scroll; height: 400px;">
+
+                    <!--TABLA POLLOS-->
                     <table class="table">
-                        <thead>
-                            <tr>
-                                <th text='detallePedido'>DETALLE PEDIDO</th>
-                            </tr>
+                        <thead class="thead-dark">
+                            <th th:if="${producto.tipo=='Pollos'}" th:text="${producto.tipo}" th:each="producto : ${productos}"></th>
                         </thead>
-                        <thead>
-                            <tr>
-                                <th>Producto</th>
-                                <th>Cantidad</th>
-                                <th>Precio</th>
-                                <th><i class="fas fa-trash"></i></th>
+                        <thead th:replace="/fragments/theader :: thead"></thead>
+                        <body>
+                            <tr th:if="${ producto.tipo == 'Pollos'}" th:each="producto : ${productos}">
+                                <form th:replace="/fragments/formProductos :: form"></form>
                             </tr>
-                        </thead>
-                        <tbody>
-                            <tr th:each="ventaAux : ${ventaAuxs}">
-                                <input hidden th:value="${ventaAux.id}" name="idVentaAux">
-                                <td th:text="${ventaAux.producto}"> </td>
-                                <td th:text="${ventaAux.cantidad}"> </td>
-                                <td th:text="${ventaAux.precio}">
-
-                                </td>
-                                <td>
-                                    <a class="btn btn-danger" th:href="@{/sacarVentaAux/__${ventaAux.id}__}">
-                                        <i class="fas fa-times-circle"></i></a>
-                                </td>
-
-
-                            </tr>
-                        </tbody>
+                        </body>
                     </table>
 
-                    <div class="d-flex justify-content-end d-grid gap-2">
-                        <h2>Total</h2>
-                        <h2 th:text="'$'+${ventaAuxTotal}"></h2>
-                    </div>
+                    <!--TABLA EMPANADAS-->
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <th th:if="${producto.tipo=='Empanadas'}" th:text="${producto.tipo}" th:each="producto : ${productos}"></th>
+                        </thead>
+                        <thead th:replace="/fragments/theader :: thead"></thead>
+                        <body>
+                            <tr th:if="${ producto.tipo == 'Empanadas'}" th:each="producto : ${productos}">
+                                <form th:replace="/fragments/formProductos :: form"></form>
+                            </tr>
+                        </body>
+                    </table>
 
-                    <div class="d-flex justify-content-end d-grid gap-2">
-                        <button type="button" class="btn btn-danger align-items-start">
-                            Borrar Todo
-                        </button>
+                    <!--TABLA BEBIDAS-->
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <th th:if="${producto.tipo=='Bebidas'}" th:text="${producto.tipo}" th:each="producto : ${productos}"></th>
+                        </thead>
+                        <thead th:replace="/fragments/theader :: thead"></thead>
+                        <body>
+                            <tr th:if="${ producto.tipo == 'Bebidas'}" th:each="producto : ${productos}">
+                                <form th:replace="/fragments/formProductos :: form"></form>
+                            </tr>
+                        </body>
+                    </table>
+
+                </div>
+                <div class="col-4" style="overflow-y: scroll; height: 400px;">
+                    <form th:action="@{/cargarVenta}" method="POST">
                         
-                        <button type="submit" class="btn btn-success align-items-start">
-                            Confirmar
-                        </button>
+                        <div class="text-center bg-black mb-1">
+                            <label class="text-white">Completar VENTA</label>
+                        </div>
                         
+                        <div class="form-group">
+                            <label>Nombre Cliente</label> <input type="text" class="form-control" name="clienteNombre" placeholder="Ingrese aqui el nombre" required="true">
+                        </div>
 
-
-                    </div>
+                        <div class="form-group">
+                            <label>Domicilio</label> <input type="text" class="form-control" name="clienteDomicilio" placeholder="Ingrese aqui el domicilio" required="true">
+                        </div>
                     
-                </form>
+                        <!--TABLA VENTAS-->
+                        <table class="table">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th text='detallePedido'>DETALLE PEDIDO</th>
+                                </tr>
+                            </thead>
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Cantidad</th>
+                                    <th>Precio</th>
+                                    <th><i class="fas fa-trash"></i></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="ventaAux : ${ventaAuxs}">
+                                    <input hidden th:value="${ventaAux.id}" name="idVentaAux">
+                                    <td th:text="${ventaAux.producto}"> </td>
+                                    <td th:text="${ventaAux.cantidad}"> </td>
+                                    <td th:text="${ventaAux.precio}">
+    
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-danger" th:href="@{/sacarVentaAux/__${ventaAux.id}__}">
+                                            <i class="fas fa-times-circle"></i></a>
+                                    </td>
+    
+    
+                                </tr>
+                            </tbody>
+                        </table>
+    
+                        <div class="d-flex justify-content-end d-grid gap-2">
+                            <h2>Total</h2>
+                            <h2 th:text="'$'+${ventaAuxTotal}"></h2>
+                        </div>
+    
+                        <div class="d-flex justify-content-end d-grid gap-2">
+                            <button type="button" class="btn btn-danger align-items-start">
+                                Borrar Todo
+                            </button>
+                            
+                            <button type="submit" class="btn btn-success align-items-start">
+                                Confirmar
+                            </button>
+                            
+    
+    
+                        </div>
+                        
+                    </form>
+                </div>
             </div>
+
     </section>
 
 

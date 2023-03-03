@@ -25,7 +25,9 @@ public class ServicioUsuario implements UserDetailsService {
     
     @Autowired
     private RepositorioUsuario usuarioRepositorio;
-       
+    
+
+    
     @Transactional
     public Usuario crearUsuario(String email, String pw1, String pw2) throws Exception{
 
@@ -40,18 +42,24 @@ public class ServicioUsuario implements UserDetailsService {
         
     }
     @Transactional
-    public Usuario modificarUsuario(String id, String email, String pw1, String pw2) throws Exception{
-        validarModificacion(email,pw1,pw2);
-        Usuario u = usuarioRepositorio.getOne(id);
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        if (u==null) {
-            throw new Exception("No existe un usuario con esa ID");
-        }
-        u.setEmail(email);
-        u.setPassword(encoder.encode(pw1));
-        u.setRole(u.getRole());
+    public void modificarContrasena(String id, String email,String pwActual, String newPW1, String newPW2) throws Exception{
         
-        return usuarioRepositorio.save(u);
+        Usuario usuario = usuarioRepositorio.getOne(id);
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        if (encoder.matches(pwActual, usuario.getPassword())) {
+            if (newPW1.equals(newPW2)) {
+                usuario.setPassword(encoder.encode(newPW1));
+                
+            } else {
+                throw new Exception("La nueva contraseña no coincide");
+            }
+
+        } else  {
+            throw new Exception("La contraseña actual no coincide");
+            
+        }
+
+        
     }
     @Transactional
     public Usuario findByEmail(String email){
@@ -92,18 +100,6 @@ public class ServicioUsuario implements UserDetailsService {
         }
         
         
-    }
-    
-    public void validarModificacion(String email, String pw1, String pw2) throws Exception{
-        if (email == null || email.isEmpty()) {
-            throw new Exception("Email no puede estar vacio");
-        }
-        if (pw1 == null || pw2 == null || pw1.isEmpty() || pw2.isEmpty()) {
-            throw new Exception("Las contraseñas no pueden estar vacias");
-        }
-        if (!pw1.equals(pw2)) {
-            throw new Exception("Las contraseñas no coinciden");
-        }
     }
 
     @Override

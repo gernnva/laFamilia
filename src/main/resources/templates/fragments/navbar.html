@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark p-0">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark p-0" style="position: relative; top: 0; width: 100%;">
   <div class="container">
     <a class="navbar-brand" th:href="@{/}">
       <img th:src="@{../img/logo.png}" style="width: 120px" >
@@ -12,16 +12,21 @@
           <a class="nav-link" sec:authorize="!hasAnyRole('ADMIN', 'USER')" th:href="@{/}">Login</a>
         </li>
         <li class="nav-item" sec:authorize="!hasAnyRole('ADMIN','USER')">
-          <a class="nav-link" th:href="@{/registro}">Registrate</a>
+          <a class="nav-link" th:href="@{/registro}">|| Registrate ||</a>
         </li>
         <li class="nav-item" sec:authorize="hasAnyRole('ADMIN','USER')">
-          <a class="nav-link" th:href="@{/usuario/editar}">Cambiar Contraseña</a>
+          <a class="nav-link" th:href="@{/modificarContrasenas}">|| Cambiar Contraseña ||</a>
         </li>
-        <!-- <li class="nav-item" sec:authorize="hasRole('ADMIN')">
-          <a class="nav-link" th:href="@{/admin/}">Dashboard</a>
-        </li> -->
+        <li class="nav-item" sec:authorize="hasAnyRole('ADMIN','USER')">
+          <a class="nav-link" th:href="@{/panel}">|| Panel ||</a>
+        </li>
+
+        <li class="nav-item" sec:authorize="hasAnyRole('ADMIN','USER')">
+          <a class="nav-link" th:href="@{/panel}">|| Usuarios ||</a>
+        </li>
+
         <li class="nav-item" sec:authorize="isAuthenticated()">
-          <a class="nav-link" th:href="@{/logout}">Cerrar Sesion</a>
+          <a class="nav-link" th:href="@{/logout}">|| Cerrar Sesion ||</a>
         </li>
       </ul>
     </div>
