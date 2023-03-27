@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th=http://www.thymeleaf.org xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="es" xmlns:th=http://www.thymeleaf.org xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <script>
     // mejorar esta guasada!!! 
     // Esperar 5 segundos antes de ocultar el elemento
-    setTimeout(function() {
+    setTimeout(function () {
         document.querySelector('.card').style.display = 'none';
     }, 5000);
 </script>
@@ -12,91 +12,93 @@
 
 <head>
     <title>Logueo </title>
+
     <head th:replace="/fragments/header :: head"> </head>
 </head>
 
 
 <body>
-
     <nav th:replace="/fragments/navbar :: nav"></nav>
-    <div class="container m-5">
+    <div class="d-flex">
+        
 
-        <div th:if="${error}!=null" class="card text-white bg-danger mb-3 text-center">
-            <div class="card-body">
-                <h5 class="card-title text-center">Error</h5>
-                <p class="card-text" th:text="${error}"></p>
-            </div>
+        <div class="container m-5">
 
-        </div>
-
-        <div th:if="${exitoReg}!=null" class="card text-white bg-success mb-3 text-center">
-            <div class="card-body">
-                <h5 class="card-title">Exito</h5>
-                <p class="card-text" th:text="${exitoReg}"></p>
-            </div>
-
-        </div>
-
-        <div th:if="${logout}!=null" class="card text-white bg-success mb-3 text-center">
-            <div class="card-body">
-                <p class="card-text" th:text="${logout}"></p>
-            </div>
-        </div>
-
-        <div th:if="${modificacionOK}!=null" class="card text-white bg-success mb-3 text-center">
-            <div class="card-body">
-                <p class="card-text" th:text="${modificacionOK}"></p>
-            </div>
-        </div>
-
-        <div class="d-flex justify-content-center h-100">
-            <div class="user_card">
-                <div class="d-flex justify-content-center">
-                    <div class="m-2">
-                        <img th:src="@{../img/Login.png}"
-                            alt="Logo" style="width: 200px;">
-                    </div>
+            <div th:if="${error}!=null" class="card text-white bg-danger mb-3 text-center">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Error</h5>
+                    <p class="card-text" th:text="${error}"></p>
                 </div>
-                <div class="d-flex justify-content-center form_container">
-                    <form th:action="@{/logincheck}" method="POST">
-                        <div class="input-group mb-3">
-                            <div class="input-group-append">
-                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+
+            </div>
+
+            <div th:if="${exitoReg}!=null" class="card text-white bg-success mb-3 text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Exito</h5>
+                    <p class="card-text" th:text="${exitoReg}"></p>
+                </div>
+
+            </div>
+
+            <div th:if="${logout}!=null" class="card text-white bg-success mb-3 text-center">
+                <div class="card-body">
+                    <p class="card-text" th:text="${logout}"></p>
+                </div>
+            </div>
+
+            <div th:if="${modificacionOK}!=null" class="card text-white bg-success mb-3 text-center">
+                <div class="card-body">
+                    <p class="card-text" th:text="${modificacionOK}"></p>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-center h-100">
+                <div class="user_card">
+                    <div class="d-flex justify-content-center">
+                        <div class="m-2">
+                            <img th:src="@{../img/Login.png}" alt="Logo" style="width: 200px;">
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center form_container">
+                        <form th:action="@{/logincheck}" method="POST">
+                            <div class="input-group mb-3">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                </div>
+                                <input type="email" name="email" class="form-control input_user" value=""
+                                    placeholder="ingrese su Email">
                             </div>
-                            <input type="email" name="email" class="form-control input_user" value=""
-                                placeholder="ingrese su Email">
-                        </div>
-                        <div class="input-group mb-2">
-                            <div class="input-group-append">
-                                <span class="input-group-text"><i class="fas fa-key"></i></span>
+                            <div class="input-group mb-2">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fas fa-key"></i></span>
+                                </div>
+                                <input type="password" name="password" class="form-control input_pass" value=""
+                                    placeholder="ingrese su password">
                             </div>
-                            <input type="password" name="password" class="form-control input_pass" value=""
-                                placeholder="ingrese su password">
-                        </div>
-                        <!--						<div class="form-group">
-							<div class="custom-control custom-checkbox">
-								<input type="checkbox" class="custom-control-input" id="customControlInline">
-								<label class="custom-control-label" for="customControlInline">Remember me</label>
-							</div>
-						</div>
--->
-                        <div class="d-flex justify-content-center mt-3 login_container">
-                            <button type="submit" class="btn login_btn">Login</button>
-                        </div>
-                    </form>
+
+                            <div class="d-flex justify-content-center mt-3 login_container">
+                                <button type="submit" class="btn btn-info">Login</button>
+                            </div>
+                        </form>
+                    </div>
+
                 </div>
 
-                <div class="mt-4">
-                    <div class="d-flex justify-content-center links">
-                        Don't have an account? <a href="#" class="ml-2">Sign Up</a>
-                    </div>
-                    <div class="d-flex justify-content-center links">
-                        <a href="#">Forgot your password?</a>
-                    </div>
-                </div>
+
             </div>
         </div>
+        <div class="d-flex justify-content-end">
+            <div class="m-5">
+                <img th:src="@{https://deconejo.site/wp-content/uploads/2020/03/gallo-clauido-frases.png}" alt="gallo"
+                    style="width: 450px;">
+            </div>
+        </div>
+
+
     </div>
+
+
+    <footer th:replace="/fragments/footer :: footer"></footer>
 
 </body>
 

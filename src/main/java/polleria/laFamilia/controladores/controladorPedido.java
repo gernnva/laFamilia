@@ -1,6 +1,8 @@
 
 package polleria.laFamilia.controladores;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
@@ -59,9 +61,12 @@ public class controladorPedido {
     public String modificadoEstado(@PathVariable Integer id, @RequestParam EstadoPedido estadoPedido) {
         
         Date fechaPedido = (repoPedido.getById(id)).getCreadoFecha();
+        String cliente = repoPedido.getById(id).getCliente();     
+
         try {
             
             servPedido.modificarEstado(id, estadoPedido);
+            return "redirect:/pedido/porFechaYCliente" + "?fecha=" + fechaPedido + "&cliente=" + (URLEncoder.encode(cliente, StandardCharsets.UTF_8.toString()));
             
         } catch (Exception e) {
             
@@ -77,9 +82,9 @@ public class controladorPedido {
 
         try {
             servPedido.pagado(id);
-            Date fechaPedido = (repoPedido.getById(id)).getCreadoFecha();
-            
-            return "redirect:/pedido/pedidosPorFecha" + "?fechaPedido=" + fechaPedido;
+            Date fechaPedido = repoPedido.getById(id).getCreadoFecha();
+            String cliente = repoPedido.getById(id).getCliente();      
+            return "redirect:/pedido/porFechaYCliente" + "?fecha=" + fechaPedido + "&cliente=" + (URLEncoder.encode(cliente, StandardCharsets.UTF_8.toString())) ;
         } catch (Exception ex) {
             return "redirect:/";
         }
@@ -124,5 +129,23 @@ public class controladorPedido {
         
         
     }
-
+    
+    @GetMapping("/porFechaYCliente")
+    public String buscarPorFechaYCliente(@RequestParam("fecha") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fecha, @RequestParam("cliente") String cliente, ModelMap model) {
+    
+        List<Pedido> pedidos = repoPedido.buscarPorFechaYCliente(fecha, cliente);
+        
+        
+        Integer acumulador = 0;
+        
+        for (Pedido pedido : pedidos) {
+            acumulador = pedido.getTotalPedido() + acumulador;
+   
+        }
+        model.addAttribute("pedidos", pedidos);
+        model.addAttribute("totalHistorialPedido", acumulador);
+        
+        return "historialPedidos";
+        // return repoPedido.buscarPorFechaYCliente(fecha, cliente);
+    }
 }

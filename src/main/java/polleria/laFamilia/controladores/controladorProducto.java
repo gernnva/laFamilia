@@ -273,7 +273,6 @@ public class controladorProducto {
     @GetMapping("/limpiarPedido")
     public String limpiarPedido (){
         servVentaAux.borrarTodo();
-        System.out.println("llsls");
         return "redirect:/listar";
     }
 

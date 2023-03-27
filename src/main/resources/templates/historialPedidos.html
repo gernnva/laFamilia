@@ -1,7 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th=http://www.thymeleaf.org xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="es" xmlns:th=http://www.thymeleaf.org xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:replace="/fragments/header :: head"> </head>
+
+<style>
+  @media screen and (max-width: 1240px) {
+    .table {
+      overflow-x: auto;
+    }
+    .table table {
+      width: 100%;
+    }
+  }
+</style>
 
 <body>
     <nav th:replace="/fragments/navbar :: nav"></nav>
@@ -104,7 +115,7 @@
 
     </div>
 
-
+    <footer th:replace="/fragments/footer :: footer"></footer>
 </body>
 
 </html>

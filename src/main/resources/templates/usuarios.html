@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th=http://www.thymeleaf.org xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Usuarios</title>
+    <head th:replace="/fragments/header :: head"> </head>
+</head>
+<body>
+
+    <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Mail</th>
+            <th scope="col">Password</th>
+            <th scope="col">Rol</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="usuario : ${usuarios}">
+            <td th:text="${usuario.email}"></td>
+            <td th:text="${usuario.role}"></td>
+            <td>@mdo</td>
+          </tr>
+
+
+    
+</body>
+</html>

@@ -20,5 +20,8 @@ public interface RepositorioPedido extends JpaRepository<Pedido, Integer>{
     @Query("SELECT p FROM Pedido p WHERE p.cliente = :cliente")
     List<Pedido> buscarPorCliente(@Param("cliente") String cliente);
     
+    @Query("SELECT p FROM Pedido p WHERE p.creadoFecha = :creadoFecha AND p.cliente = :cliente")
+    List<Pedido> buscarPorFechaYCliente(@Param("creadoFecha") Date creadoFecha, @Param("cliente") String cliente);
+    
     
 }
