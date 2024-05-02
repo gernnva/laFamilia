@@ -56,23 +56,17 @@ public class ServicioVentaAux {
     }
     
     public void borrarItem (String id){
-        
+        //
         List<Producto> producto = productoRepositorio.findAll();
         VentaAux ventaAux = ventaAuxRepositorio.getById(id);
-        
-        ;
-        
-        
-        
+       
         for(Producto buscandoProducto : producto){
             String armado = buscandoProducto.getTipo()+ " " + buscandoProducto.getNombre();
             if(ventaAux.getProducto().equalsIgnoreCase(armado)){
-                buscandoProducto.setStock(buscandoProducto.getStock()+ventaAux.getCantidad());
-                
+                buscandoProducto.setStock(buscandoProducto.getStock()+ventaAux.getCantidad());               
             }
         }
-        
-        
+
         ventaAuxRepositorio.delete(ventaAux);
         
     }
@@ -92,8 +86,21 @@ public class ServicioVentaAux {
         
         return ventaAuxRepositorio.totalVentaAux();
     }
-    
+    // Borro con un solo metodo todos los productos en el "detalle Pedido" recuperando el stock original
     public void borrarTodo(){
+        
+        List<Producto> producto = productoRepositorio.findAll();
+        List<VentaAux> ventaAux = ventaAuxRepositorio.findAll();
+       
+        ventaAux.forEach((cadaVentaAux) -> {
+            producto.forEach((cadaProductoEnStock) -> {
+                String armado = cadaProductoEnStock.getTipo()+ " " + cadaProductoEnStock.getNombre();
+                if (cadaVentaAux.getProducto().equalsIgnoreCase(armado)) {
+                    cadaProductoEnStock.setStock(cadaProductoEnStock.getStock()+cadaVentaAux.getCantidad());
+                }
+            });
+        });
+        
         ventaAuxRepositorio.deleteAll();
     }
     

@@ -1,0 +1,44 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 50px;
+  }
+  
+  .card {
+    width: 400px;
+    height: 150px;
+    display: none;
+  }
+  
+  .error-message {
+    background-color: #dc3545;
+  }
+  
+  .error-text {
+    color: #fff;
+  }
+  
+  .success-message {
+    background-color: #28a745;
+  }
+  
+  .success-text {
+    color: #fff;
+  }
+  
+  .login-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .form-group {
+    margin: 10px 0;
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 10
+  }

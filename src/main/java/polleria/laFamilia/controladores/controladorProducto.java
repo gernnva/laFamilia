@@ -172,7 +172,7 @@ public class controladorProducto {
         return "redirect:/listar";
 
     }
-
+    // La cruz roja para borrar una lista de productos de la Tabla Aux de Ventas
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @GetMapping("/sacarVentaAux/{id}")
     public String sacarProducto(@PathVariable String id) {

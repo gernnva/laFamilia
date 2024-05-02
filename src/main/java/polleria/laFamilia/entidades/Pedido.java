@@ -1,7 +1,5 @@
 package polleria.laFamilia.entidades;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -11,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import org.springframework.format.annotation.DateTimeFormat;
 import polleria.laFamilia.enums.EstadoPedido;
 
 
@@ -24,7 +21,7 @@ public class Pedido{
     private Integer numPedido;
     
     private String cliente;
-    private String Domicilio;
+    private String domicilio;
     
     // variable para saber quien tomo el pedido
     @Enumerated(EnumType.STRING)
@@ -35,6 +32,15 @@ public class Pedido{
     
     @Temporal(TemporalType.TIME)
     private Date creadoHora;
+    
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date entregado;
+    
+    private boolean pagado;
+    
+    private String productos;
+    
+    private Integer totalPedido;
 
     public Date getCreadoFecha() {
         return creadoFecha;
@@ -51,22 +57,13 @@ public class Pedido{
     public void setCreadoHora(Date creadoHora) {
         this.creadoHora = creadoHora;
     }
-    
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date entregado;
-    
-    private boolean pagado;
-    
-    private String productos;
-    
-    private Integer totalPedido;
 
     public Pedido() {
     }
 
-    public Pedido(String cliente, String Domicilio, EstadoPedido estadoPedido, Date creadoFecha, Date creadoHora, Date entregado, boolean pagado, String productos, Integer totalPedido) {
+    public Pedido(String cliente, String domicilio, EstadoPedido estadoPedido, Date creadoFecha, Date creadoHora, Date entregado, boolean pagado, String productos, Integer totalPedido) {
         this.cliente = cliente;
-        this.Domicilio = Domicilio;
+        this.domicilio = domicilio;
         this.estadoPedido = estadoPedido;
         this.creadoFecha = creadoFecha;
         this.creadoHora = creadoHora;
@@ -93,11 +90,11 @@ public class Pedido{
     }
 
     public String getDomicilio() {
-        return Domicilio;
+        return domicilio;
     }
 
     public void setDomicilio(String Domicilio) {
-        this.Domicilio = Domicilio;
+        this.domicilio = Domicilio;
     }
 
     public EstadoPedido getEstadoPedido() {
@@ -142,7 +139,7 @@ public class Pedido{
 
     @Override
     public String toString() {
-        return "Pedido{" + "numPedido=" + numPedido + ", cliente=" + cliente + ", Domicilio=" + Domicilio + ", estadoPedido=" + estadoPedido + ", creadoFecha=" + creadoFecha + ", creadoHora=" + creadoHora + ", entregado=" + entregado + ", pagado=" + pagado + ", productos=" + productos + ", totalPedido=" + totalPedido + '}';
+        return "Pedido{" + "numPedido=" + numPedido + ", cliente=" + cliente + ", Domicilio=" + domicilio + ", estadoPedido=" + estadoPedido + ", creadoFecha=" + creadoFecha + ", creadoHora=" + creadoHora + ", entregado=" + entregado + ", pagado=" + pagado + ", productos=" + productos + ", totalPedido=" + totalPedido + '}';
     }
 
 
